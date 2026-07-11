@@ -26,6 +26,19 @@ k get servicecidr
 k get configmap -A
 k delete configmap kube-flannel-cfg -n kube-flannel
 k get cm kube-proxy -n kube-system -o yaml | grep mode
+k describe cm coredns -n kube-system
 
 # Check type of proxy
 k logs -n kube-system kube-proxy-5t6q4 | grep -i "proxier"
+
+# Handle service
+k describe service kube-dns -n kube-system
+
+# test connection
+k exec -it test -- curl web-service
+k exec -it test -- curl web-service.default
+k exec -it test -- curl web-service.default.svc
+k exec -it test -n default -- curl web-service.payroll.svc.cluster.local
+
+# Deployments
+k get deployments -A
