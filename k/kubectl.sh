@@ -149,3 +149,13 @@ EOF
 
 kubectl get httproute frontend-route
 kubectl describe httproute frontend-route
+
+# Flannel
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+# In the Flannel DaemonSet spec
+containers:
+  - name: kube-flannel
+    args:
+      - --ip-masq
+      - --kube-subnet-mgr
+      - --iface=eth0    # Force Flannel to use eth0
