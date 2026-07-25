@@ -159,3 +159,10 @@ containers:
       - --ip-masq
       - --kube-subnet-mgr
       - --iface=eth0    # Force Flannel to use eth0
+
+
+# Node management
+k get nodes
+k get nodes -o wide
+
+kubectl describe node <node-name>
