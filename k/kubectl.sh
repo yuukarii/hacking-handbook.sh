@@ -166,3 +166,11 @@ k get nodes
 k get nodes -o wide
 
 kubectl describe node <node-name>
+
+# View custom config
+kubectl config view --kubeconfig=/root/my-kube-config
+
+# Persistent volume
+kubectl get pv
+kubectl get pv --sort-by=.spec.capacity.storage
+k get persistentvolume --sort-by=.spec.capacity.storage -o custom-columns=NAME:.metadata.name,CAPACITY:.spec.capacity.storage
