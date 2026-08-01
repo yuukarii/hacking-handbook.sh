@@ -167,6 +167,9 @@ k get nodes -o wide
 
 kubectl describe node <node-name>
 
+kubectl drain --ignore-daemonsets <node name>
+kubectl uncordon <node name>
+
 # View custom config
 kubectl config view --kubeconfig=/root/my-kube-config
 
@@ -174,3 +177,6 @@ kubectl config view --kubeconfig=/root/my-kube-config
 kubectl get pv
 kubectl get pv --sort-by=.spec.capacity.storage
 k get persistentvolume --sort-by=.spec.capacity.storage -o custom-columns=NAME:.metadata.name,CAPACITY:.spec.capacity.storage
+
+# Persistent Volume Claim
+k get pvc

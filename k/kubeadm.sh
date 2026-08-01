@@ -1,3 +1,5 @@
+# Update cluster
+
 sudo apt-get update
 # apt-transport-https may be a dummy package; if so, you can skip that package
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
@@ -9,11 +11,19 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.35/deb/Release.key | sudo gpg --
 # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.35/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
+sudo apt-mark unhold kubelet kubeadm kubectl
 sudo apt-get update
 sudo apt-get install -y kubeadm=1.35.0-1.1 kubelet=1.35.0-1.1 kubectl=1.35.0-1.1
 sudo apt-mark hold kubelet kubeadm kubectl
 
-sudo systemctl enable --now kubelet
+kubeadm upgrade plan
+kubeadm upgrade apply v1.35.0
+# On worker nodes
+kubeadm upgrade node
+
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
 
 # Initialize Control Plane Node (Master Node)
 

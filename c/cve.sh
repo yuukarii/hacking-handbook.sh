@@ -22,3 +22,6 @@
 
 # Mitigation:
 #   - Which version of product will include the fixes?
+
+# Rules
+# - Use LLM to verify the statements before submitting the analysis to somewhere else
